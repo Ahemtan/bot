@@ -93,6 +93,7 @@ module.exports = {
         (choice) => choice.name === targetUserInteraction.customId,
       );
 
+
       await targetUserInteraction.reply({
         content: `You picked ${targetUserChoice.name + targetUserChoice.emoji}`,
         ephemeral: true
@@ -101,7 +102,8 @@ module.exports = {
       embed.setDescription(`It's ${interaction.user}'s turn`);
 
       await reply.edit({
-        content: `${interaction.user} it's your turn!`
+        content: `${interaction.user} it's your turn!`,
+        embeds: [embed],
       });
 
       const initialUserInteraction = await reply
@@ -134,7 +136,7 @@ module.exports = {
         result = `${interaction.user} won 🎉🥳`;
       }
 
-      if (targetUserChoice.name = initialUserChoice.name) {
+      if (targetUserChoice.name === initialUserChoice.name) {
         result = "It was a tie! 😲"
       }
 
