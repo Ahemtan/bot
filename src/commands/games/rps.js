@@ -141,7 +141,7 @@ module.exports = {
       }
 
       embed.setDescription(
-        `${targetUser} picked ${targetUserChoice.name + targetUserChoice.emoji}\n
+        `${targetUser} picked ${targetUserChoice.name + targetUserChoice.emoji}
         ${interaction.user} picked ${initialUserChoice.name + initialUserChoice.emoji} \n\n
         ${result}
       `
