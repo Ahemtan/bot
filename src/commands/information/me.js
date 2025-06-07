@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("discord.js");
 
-let data = {
+const data = {
   content:
     "Unleash the Fun with Genie: Your Discord Playground Pal!\n\nCraving laughs, thrills, and good vibes in your Discord server? Say hello to Genie, \nyour friendly neighborhood entertainment genie! \nDitch the boredom and prepare for a whirlwind of fun with features like:",
   tts: false,

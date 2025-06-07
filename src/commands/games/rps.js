@@ -6,20 +6,21 @@ const {
   ButtonStyle,
 } = require("discord.js");
 
-const choices = [{
+const choices = [
+  {
     name: "Rock",
     emoji: "🪨",
-    beats: "Scissors"
+    beats: "Scissors",
   },
   {
     name: "Paper",
     emoji: "📄",
-    beats: "Rock"
+    beats: "Rock",
   },
   {
     name: "Scissors",
     emoji: "✂️",
-    beats: "Paper"
+    beats: "Paper",
   },
 ];
 
@@ -75,14 +76,14 @@ module.exports = {
 
       const targetUserInteraction = await reply
         .awaitMessageComponent({
-          filter: (i) => i.user.id == targetUser.id,
+          filter: (i) => i.user.id === targetUser.id,
           time: 30_000,
         })
         .catch(async (error) => {
           embed.setDescription(`${targetUser} did not respond in time.😢`);
           await reply.edit({
             embeds: [embed],
-            components: []
+            components: [],
           });
           return;
         });
@@ -90,13 +91,12 @@ module.exports = {
       if (!targetUserInteraction) return;
 
       const targetUserChoice = choices.find(
-        (choice) => choice.name === targetUserInteraction.customId,
+        (choice) => choice.name === targetUserInteraction.customId
       );
-
 
       await targetUserInteraction.reply({
         content: `You picked ${targetUserChoice.name + targetUserChoice.emoji}`,
-        ephemeral: true
+        ephemeral: true,
       });
 
       embed.setDescription(`It's ${interaction.user}'s turn`);
@@ -108,14 +108,16 @@ module.exports = {
 
       const initialUserInteraction = await reply
         .awaitMessageComponent({
-          filter: (i) => i.user.id == interaction.user.id,
+          filter: (i) => i.user.id === interaction.user.id,
           time: 30_000,
         })
         .catch(async (error) => {
-          embed.setDescription(`${interaction.user} did not respond in time.😢`);
+          embed.setDescription(
+            `${interaction.user} did not respond in time.😢`
+          );
           await reply.edit({
             embeds: [embed],
-            components: []
+            components: [],
           });
           return;
         });
@@ -137,19 +139,21 @@ module.exports = {
       }
 
       if (targetUserChoice.name === initialUserChoice.name) {
-        result = "It was a tie! 😲"
+        result = "It was a tie! 😲";
       }
 
       embed.setDescription(
         `${targetUser} picked ${targetUserChoice.name + targetUserChoice.emoji}
-        ${interaction.user} picked ${initialUserChoice.name + initialUserChoice.emoji} \n\n
+        ${interaction.user} picked ${
+          initialUserChoice.name + initialUserChoice.emoji
+        } \n\n
         ${result}
       `
-      )
+      );
 
       reply.edit({
         embeds: [embed],
-        components: []
+        components: [],
       });
     } catch (error) {
       console.log(`Error with choices! ${error}`);

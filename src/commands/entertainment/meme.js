@@ -1,34 +1,29 @@
-const {
-    SlashCommandBuilder,
-    Embed,
-    EmbedBuilder
-} = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
-const axios = require('axios')
+const axios = require("axios");
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('meme')
-        .setDescription('Gimme meme!!'),
-    async execute(interaction, client) {
+  data: new SlashCommandBuilder()
+    .setName("meme")
+    .setDescription("Gimme meme!!"),
+  async execute(interaction, client) {
+    const res = await axios("https://meme-api.com/gimme", {
+      timeout: 10000,
+    });
 
-        const respond = await axios(`https://www.reddit.com/r/memes/random/.json`, {
-            timeout: 10000,
-        })
+    const data = res.data;
 
-        const data = respond.data[0].data.children[0].data
+    const embed = new EmbedBuilder()
+      .setColor("Random")
+      .setTitle(`${data.title}`)
+      .setImage(`${data.preview[3]}`)
+      .setURL(data.postLink)
+      .setFooter({
+        text: data.author,
+      });
 
-        const embed = new EmbedBuilder()
-            .setColor("Random")
-            .setTitle(`${data.title}`)
-            .setImage(`${data.url}`)
-            .setURL(`https://www.reddit.com${data.permalink}`)
-            .setFooter({
-                text: data.author
-            })
-
-        await interaction.reply({
-            embeds: [embed]
-        });
-    },
+    await interaction.reply({
+      embeds: [embed],
+    });
+  },
 };
