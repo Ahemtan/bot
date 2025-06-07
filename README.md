@@ -1,6 +1,3 @@
----
-
-```markdown
 # 🤖 Discord Bot
 
 A modular and scalable Discord bot built using [discord.js](https://discord.js.org/).  
